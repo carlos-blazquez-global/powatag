@@ -63,25 +63,28 @@ class Powatag extends PaymentModule
     private function includeFiles()
     {
         $path = $this->getLocalPath().'classes/';
-
-        foreach (scandir($path) as $class) {
-            if (is_file($path.$class)) {
-                $class_name = Tools::substr($class, 0, -4);
-                //Check if class_name is an existing Class or not
-                if (!class_exists($class_name, false) && $class_name != 'index') {
-                    require_once $path.$class_name.'.php';
+        if (is_dir($path)) {
+            foreach (scandir($path) as $class) {
+                if (is_file($path.$class)) {
+                    $class_name = Tools::substr($class, 0, -4);
+                    //Check if class_name is an existing Class or not
+                    if (!class_exists($class_name, false) && $class_name != 'index') {
+                        require_once $path.$class_name.'.php';
+                    }
                 }
             }
         }
+           
 
         $path .= 'helper/';
-
-        foreach (scandir($path) as $class) {
-            if (is_file($path.$class)) {
-                $class_name = Tools::substr($class, 0, -4);
-                //Check if class_name is an existing Class or not
-                if (!class_exists($class_name, false) && $class_name != 'index') {
-                    require_once $path.$class_name.'.php';
+        if (is_dir($path)) {
+            foreach (scandir($path) as $class) {
+                if (is_file($path.$class)) {
+                    $class_name = Tools::substr($class, 0, -4);
+                    //Check if class_name is an existing Class or not
+                    if (!class_exists($class_name, false) && $class_name != 'index') {
+                        require_once $path.$class_name.'.php';
+                    }
                 }
             }
         }
